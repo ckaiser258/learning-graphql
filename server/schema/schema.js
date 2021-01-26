@@ -2,6 +2,20 @@ const graphql = require("graphql");
 
 const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
 
+//dummy data
+var books = [
+  {
+    name: "Name of the Wind",
+    genre: "Fantasy",
+    id: "1",
+  },
+  {
+    name: "The Final Empire",
+    genre: "Sci-Fi",
+    id: "2",
+  },
+];
+
 const BookType = new GraphQLObjectType({
   name: "Book",
   fields: () => ({
@@ -26,6 +40,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLString } },
       resolve(parent, args) {
         //code to get data from db/other source
+        return books.find((book) => args.id === book.id);
       },
     },
   },
