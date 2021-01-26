@@ -10,6 +10,8 @@ app.use(
   graphqlHTTP({
     //Define schema
     schema: schema,
+    //start graphiql on request
+    graphiql: true,
   })
 );
 
