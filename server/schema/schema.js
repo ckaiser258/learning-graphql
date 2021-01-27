@@ -15,6 +15,18 @@ var books = [
     id: "2",
   },
 ];
+var authors = [
+  {
+    name: "Patrick Rothfuss",
+    age: 44,
+    id: "1",
+  },
+  {
+    name: "Brandon Sanderson",
+    age: 42,
+    id: "2",
+  },
+];
 
 const BookType = new GraphQLObjectType({
   name: "Book",
@@ -24,6 +36,17 @@ const BookType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     genre: { type: GraphQLString },
+  }),
+});
+
+const AuthorType = new GraphQLObjectType({
+  name: "Author",
+  fields: () => ({
+    //The GraphQLID type will coerce a number to a string.
+    //It allows for you to pass a string OR a number as the id.
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    age: { type: GraphQLInt },
   }),
 });
 
