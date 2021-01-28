@@ -6,6 +6,7 @@ const {
   GraphQLSchema,
   GraphQLID,
   GraphQLInt,
+  GraphQLList,
 } = graphql;
 
 //dummy data
@@ -20,6 +21,18 @@ var books = [
     name: "The Final Empire",
     genre: "Sci-Fi",
     id: "2",
+    authorId: "2",
+  },
+  {
+    name: "The Hero of Ages",
+    genre: "Fantasy",
+    id: "3",
+    authorId: "2",
+  },
+  {
+    name: "The Colour of Magic",
+    genre: "Fantasy",
+    id: "4",
     authorId: "2",
   },
 ];
@@ -38,6 +51,9 @@ var authors = [
 
 const BookType = new GraphQLObjectType({
   name: "Book",
+  //fields always needs to be a function since this object won't know what
+  //AuthorType is until later on in the file
+  //Changing the order of things won't make a difference since things refer to each other
   fields: () => ({
     //The GraphQLID type will coerce a number to a string.
     //It allows for you to pass a string OR a number as the id.
@@ -63,6 +79,15 @@ const AuthorType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     age: { type: GraphQLInt },
+    books: {
+      //GraphQLList(BookType) will return a list of BookTypes
+      //Since authors can have more than one book, we can't just put BookType (which only returns one book)
+      type: new GraphQLList(BookType),
+      //Parent refers to Author in this case
+      resolve(parent, args) {
+        return books.filter((book) => book.authorId === parent.id);
+      },
+    },
   }),
 });
 
