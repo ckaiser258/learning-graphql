@@ -14,11 +14,13 @@ var books = [
     name: "Name of the Wind",
     genre: "Fantasy",
     id: "1",
+    authorId: "1",
   },
   {
     name: "The Final Empire",
     genre: "Sci-Fi",
     id: "2",
+    authorId: "2",
   },
 ];
 var authors = [
@@ -42,6 +44,14 @@ const BookType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     genre: { type: GraphQLString },
+    author: {
+      type: AuthorType,
+      //parent refers to the book in this case
+      resolve(parent, args) {
+        console.log(parent); //Logs the book object
+        return authors.find((author) => author.id === parent.authorId);
+      },
+    },
   }),
 });
 
