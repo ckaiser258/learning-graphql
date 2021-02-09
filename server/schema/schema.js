@@ -26,7 +26,7 @@ const BookType = new GraphQLObjectType({
       type: AuthorType,
       //parent refers to the book in this case
       resolve(parent, args) {
-        // console.log(parent); //Logs the book object
+        console.log(parent); //Logs the book object
         // return authors.find((author) => author.id === parent.authorId);
       },
     },
@@ -93,7 +93,31 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-//Export the query of this schema to use in graphqlHTTP() in app.js
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addAuthor: {
+      type: AuthorType,
+      //args is what the user needs to pass as arguments from the front end to add an author
+      args: {
+        name: { type: GraphQLString },
+        age: { type: GraphQLInt },
+      },
+      resolve(parent, args) {
+        let author = new Author({
+          name: args.name,
+          age: args.age,
+        });
+        //use mongoose to save the new author to the database (.save() comes from mongoose which
+        //saves the object to the database and returns it)
+        return author.save();
+      },
+    },
+  },
+});
+
+//Export the query and mutation of this schema to use in graphqlHTTP() in app.js
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation: Mutation,
 });
