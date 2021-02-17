@@ -3,8 +3,13 @@ const { graphqlHTTP } = require("express-graphql");
 const schema = require("./schema/schema");
 const mongoose = require("mongoose");
 const MongoClient = require("mongodb").MongoClient;
+const cors = require("cors");
 
 const app = express();
+
+//allow cross-origin requests
+
+app.use(cors());
 
 const uri =
   "mongodb://user:12345@cluster0-shard-00-00.uwgnz.mongodb.net:27017,cluster0-shard-00-01.uwgnz.mongodb.net:27017,cluster0-shard-00-02.uwgnz.mongodb.net:27017/Cluster0?ssl=true&replicaSet=atlas-g8uqlj-shard-0&authSource=admin&retryWrites=true&w=majority";
