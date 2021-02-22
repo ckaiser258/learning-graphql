@@ -11,7 +11,7 @@ function AddBook(props) {
   const [authorId, setAuthorId] = useState("");
 
   const displayAuthors = () => {
-    let data = props.data;
+    let data = props.getAuthorsQuery;
     if (data.loading) {
       return <option disabled>Loading Authors...</option>;
     }
@@ -26,7 +26,7 @@ function AddBook(props) {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log(name, genre, authorId);
+    props.addBookMutation();
   };
 
   return (
@@ -53,6 +53,10 @@ function AddBook(props) {
   );
 }
 
-//bind getAuthorsQuery to AddBook so we can access the data from the query inside AddBook
+//bind getAuthorsQuery and addBookMutation to AddBook so we can access the data from the query inside AddBook
 //this data is now stored in AddBook's props
-export default graphql(getAuthorsQuery)(AddBook);
+export default compose(
+  //name is what you want the name of the function to be used as in the code
+  graphql(getAuthorsQuery, { name: "getAuthorsQuery" }),
+  graphql(addBookMutation, { name: "addBookMutation" })
+)(AddBook);
