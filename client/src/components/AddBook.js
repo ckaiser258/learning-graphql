@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { graphql } from "react-apollo";
-import { getAuthorsQuery } from "../queries/queries";
+import { getAuthorsQuery, addBookMutation } from "../queries/queries";
+import flowright from "lodash.flowright";
+
+const compose = flowright;
 
 function AddBook(props) {
   const [name, setName] = useState("");
@@ -20,6 +23,7 @@ function AddBook(props) {
       );
     });
   };
+
   const submitForm = (e) => {
     e.preventDefault();
     console.log(name, genre, authorId);
