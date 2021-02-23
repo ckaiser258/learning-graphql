@@ -9,6 +9,7 @@ function AddBook(props) {
   const [name, setName] = useState("");
   const [genre, setGenre] = useState("");
   const [authorId, setAuthorId] = useState("");
+  console.log(name, genre, authorId);
 
   const displayAuthors = () => {
     let data = props.getAuthorsQuery;
@@ -26,7 +27,15 @@ function AddBook(props) {
 
   const submitForm = (e) => {
     e.preventDefault();
-    props.addBookMutation();
+    props.addBookMutation({
+      //since we set the query variables in queries.js as $name, $genre, and $authorId
+      //we use them as the variables passed into the mutation here
+      variables: {
+        name: name,
+        genre: genre,
+        authorId: authorId,
+      },
+    });
   };
 
   return (
