@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { graphql } from "react-apollo";
-import { getAuthorsQuery, addBookMutation } from "../queries/queries";
+import {
+  getAuthorsQuery,
+  addBookMutation,
+  getBooksQuery,
+} from "../queries/queries";
 import flowright from "lodash.flowright";
 
 const compose = flowright;
@@ -35,6 +39,9 @@ function AddBook(props) {
         genre: genre,
         authorId: authorId,
       },
+      //refetchQueries is from Apollo and gets all of the books again
+      //TODO: make this use a subscription instead
+      refetchQueries: [{ query: getBooksQuery }],
     });
   };
 
