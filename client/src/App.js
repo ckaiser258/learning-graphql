@@ -14,7 +14,7 @@ function App() {
     //wrap app in ApolloProvider and set the client
     //this allows us to take the data coming from the endpoint and inject it into the app
     <ApolloProvider client={client}>
-      <div className="main">
+      <div id="main">
         <h1>Colton's Reading List</h1>
         <BookList />
         <AddBook />
