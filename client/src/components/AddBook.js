@@ -13,7 +13,6 @@ function AddBook(props) {
   const [name, setName] = useState("");
   const [genre, setGenre] = useState("");
   const [authorId, setAuthorId] = useState("");
-  console.log(name, genre, authorId);
 
   const displayAuthors = () => {
     let data = props.getAuthorsQuery;
