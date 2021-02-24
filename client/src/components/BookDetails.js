@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "react-apollo";
-// import { getBooksQuery } from "../queries/queries";
+import { getBookQuery } from "../queries/queries";
 
 function BookDetails(props) {
   return (
@@ -10,4 +10,4 @@ function BookDetails(props) {
   );
 }
 
-export default BookDetails;
+export default graphql(getBookQuery)(BookDetails);
